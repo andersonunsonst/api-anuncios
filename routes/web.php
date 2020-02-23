@@ -11,6 +11,9 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+//Rotas Zap e VivaReal
+$router->get("/gerarXmlZap", function(){
+    $controller = new App\Http\Controllers\ZapController();
+    return $controller->gerarXmlZap();
 });
+

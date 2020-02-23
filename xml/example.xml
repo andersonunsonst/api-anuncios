@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Imoveis>
+    <Imovel>      
+      <CodigoImovel>ABC123</CodigoImovel>
+      <TipoImovel>Apartamento</TipoImovel>
+      <SubTipoImovel>Apartamento Padrão</SubTipoImovel >
+      <CategoriaImovel>Padrão</CategoriaImovel>
+      <UF>RJ</UF>
+	    <Cidade>Rio de Janeiro</Cidade>
+      <Bairro>Barra da Tijuca</Bairro>
+      <Numero>100</Numero>
+      <Complemento>ap. 13</Complemento>
+      <CEP>11586900</CEP>
+	    <Endereco />
+      <PrecoVenda>145000</PrecoVenda>
+      <PrecoLocacao />
+      <PrecoLocacaoTemporada />
+      <PrecoCondominio />	 
+      <AreaUtil>56</AreaUtil>
+      <AreaTotal>56</AreaTotal>
+      <UnidadeMetrica />
+      <QtdDormitorios>4</QtdDormitorios>
+      <QtdSuites />
+      <QtdBanheiros />
+      <QtdSalas />
+      <QtdVagas />
+      <QtdElevador />
+      <QtdUnidadesAndar />
+      <QtdAndar />
+      <QtdPessoasParaTemporada /> 
+	    <ValorIPTU />
+      <AnoConstrucao />
+      <PossuiDivida />
+      <SaldoDivida />
+      <ValorMensalidadeDivida />
+      <QtdParcelasRestantesDivida />
+      <Observacao />
+      <DataUltimaParcelaDivida />
+      <DiaVencimentoDivida />
+      <AceitaPermuta />
+      <AceitaPermutaCarro />
+      <AceitaPermutaImovel />
+      <AceitaPermutaOutro />
+      <ValorPermutaCarro />
+      <ValorPermutaImovel />
+      <ValorPermutaOutro />
+      <DescricaoPermuta />
+      <Acesso24Horas />
+      <Agua />
+      <ArCondicionado />
+      <ArmarioCozinha />
+      <ArmarioEmbutido />
+      <BusinessCentar />
+      <Cerca />
+      <Churrasqueira />
+      <CoffeeShop />
+      <Convencoes />
+      <Copa />
+      <EntradaCaminhoes />
+      <Escritorio />
+      <EscritorioVirtual />
+      <Esgoto />
+      <Esquina />
+      <EstacionamentoRotativo />
+      <EstacionamentoVisitantes />
+      <EstradaAsfaltada />
+      <GaragemBarcos />
+      <Guarita />
+      <Heliponto />
+      <InfraInternet />
+      <Jardim />
+      <Lago />
+      <Lavoura />
+      <Luz />
+      <Marina />
+      <Mezanino />
+      <Pasto />
+      <PatioEstacionamento />
+      <Pier />
+      <Piscina />
+      <PisoElevado />
+      <PistaPouso />
+      <Playground />
+      <PonteRolante />
+      <QuadraSquash />
+      <QuadraTenis />
+      <QuadraPoliEsportiva />
+      <Quintal />
+      <RedeTelefone />
+      <ReservatorioAgua />
+      <Restaurante />
+      <Rio />
+      <RuaAsfaltada />
+      <SalaGinastica />
+      <SalaoFestas />
+      <SalaoJogos />
+      <Sauna />
+      <Sede />
+      <SegurancaRua />
+      <SegurancaPatrimonial />
+      <Silos />
+      <SistemaIncendio />
+      <Telefone />
+      <TVCabo />
+      <Varanda />
+      <Vestiario />
+      <VidrosReflexivos />
+      <WCEmpregada />
+      <QuartoWCEmpregada />
+      <Lavabo />
+      <EstudaPermuta />
+      <DepositoSubsolo />
+      <Closet />
+      <Hidromassagem />
+      <Lareira />
+      <FrenteMar />
+      <AndarInteiro />
+      <AreaServico />
+      <Bosque />
+      <CampoFutebol />
+      <CasaCaseiro />
+      <CasaFundo />
+      <CasaPrincipal />
+      <Caseiro />
+      <ComServico />
+      <CozinhaAzulejada />
+      <Despensa />
+      <EnergiaEletrica />
+      <EntradaServicoIndependente />
+      <EntradaFacilitada />
+      <EntradaLateral />
+      <Fogao />
+      <Freezer />
+      <Geladeira />
+      <Geminada />
+      <HomeTheater />
+      <ImovelExposicao />
+      <Interfone />
+      <LavaRoupas />
+      <LavanderiaColetiva />
+      <Isolada />
+      <LivingTabuasLargas />
+      <MeioAndar />
+      <Microondas />
+      <Oferta />
+      <Paiol />
+      <ParaIncorporacao />     
+      <PistaCooper />
+      <PistaSkate />
+      <Poco />
+      <PocoArtesiano />
+      <PorteiraFechada />
+      <ProntoMorar />
+      <Refeitorio />
+      <RoupaBanho />
+      <RoupaCama />
+      <RoupaMesa />
+      <SalaAlmoco />
+      <SalaJantar />
+      <SalaIntima />
+      <SalaVideo />
+      <SegurancaInterna />
+      <Semigeminada />
+      <SpaHidromassagem />
+      <StandVendasLocal />
+      <TV />
+      <UtensiliosCozinha />
+      <UtilizeFGTS />
+      <VentiladoresTeto />
+      <VisiteImovelDecorado />
+      <Clube />
+      <ChildrenCare />
+      <Curral />
+      <Mobiliado />
+      <Recuo />
+      <Solarium />
+      <CasaMista />
+      <CasaAlvenaria />
+      <CasaMadeira />
+      <Terraco />
+	    <TipoOferta>1</TipoOferta>  
+	    <ValorEntrada>10.000</ValorEntrada>
+      <ValorMensal>5.000</ValorMensal>	
+	    <InformacoesComplementares />	  
+	    <DescricaoLocalizacao />	
+      <Fotos>
+        <Foto>
+          <NomeArquivo>foto.jpg</NomeArquivo>
+          <URLArquivo>http://www.site.com.br/imagens/foto.jpg</URLArquivo>
+          <Principal>1</Principal>
+		      <Alterada>0</Alterada>
+        </Foto>
+        <Foto>
+          <NomeArquivo>foto2.jpg</NomeArquivo>
+          <URLArquivo>http://www.site.com.br/imagens/foto2.jpg</URLArquivo>
+          <Alterada>1</Alterada>
+        </Foto>
+      </Fotos> 
+	  <Videos>
+		  <Video>
+			  <Url>https://www.youtube.com/watch?v=zutvR8M2jUk</Url>
+		  </Video>
+	  </Videos>
+    </Imovel>
+  </Imoveis>
+</Carga>
