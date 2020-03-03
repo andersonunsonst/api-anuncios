@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Libraries\Helpers;
+use App\Model\Imoveis;
 
 class ZapController extends Controller
 {
     public function gerarXml(){
-        
+        $teste = Imoveis::getImoveisZapSellf();
+        var_dump($teste);
+        exit;
         //esse array deverá ser recebido como parametro da rota, esta declaração é apenas um exemplo
         $dadosImovel = array();             
         $dadosImovel[0]['TipoImovel'] = 'Apartamento';           

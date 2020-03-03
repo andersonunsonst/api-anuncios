@@ -8,6 +8,7 @@ class Helpers {
             $tagPrincipal .= "<".$nomeTagPrincipal.">";
             for ( $j = 0; $j < count($tagsXML); $j++ ) {
                 if($dados[$i][$tagsXML[$j]] != ''){
+                    
                     if(is_array($dados[$i][$tagsXML[$j]])){
                         $tagPrincipal .= "<".$tagsXML[$j].">";
                         if ($tagsXML[$j] == 'Fotos') {
@@ -25,6 +26,7 @@ class Helpers {
                         $tagPrincipal .= $tagsXML[$j];
                         $tagPrincipal .= ">";    
                     }
+                    
                 }else{
                     $tagPrincipal .= "<";
                     $tagPrincipal .= $tagsXML[$j];
