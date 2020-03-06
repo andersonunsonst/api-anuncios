@@ -10,9 +10,7 @@ class Helpers {
                 if($dados[$i][$tagsXML[$j]] != ''){
                     
                     if(is_array($dados[$i][$tagsXML[$j]])){
-                        $tagPrincipal.="<Fotos>";
                         $tagPrincipal .= Helpers::criarTagAuxiliar('Foto', $dados[$i][$tagsXML[$j]]);
-                        $tagPrincipal.="<Fotos>";
                     }else{
                         $tagPrincipal .= "<";
                         $tagPrincipal .= $tagsXML[$j];

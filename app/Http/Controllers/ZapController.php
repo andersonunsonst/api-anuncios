@@ -30,11 +30,8 @@ class ZapController extends Controller
                 
             }
         }
-        // print_r($dadosImoveisArray);
-        // exit;
-        
-        
-        $nomeArquivo = "../xml/zap/IngegracaoSellf.xml";
+
+        $nomeArquivo = "../xml/zap/IntegracaoSellf.xml";
 
         $arquivo = fopen($nomeArquivo, 'w+');
     
@@ -47,8 +44,6 @@ class ZapController extends Controller
         $conteudoArquivo .= $tagsImovel;
         $conteudoArquivo .= '</Imoveis>';
         $conteudoArquivo .= '</Carga>';
-        var_dump($conteudoArquivo);
-        exit;
         fwrite($arquivo, $conteudoArquivo);
         fclose($arquivo); 
     }
