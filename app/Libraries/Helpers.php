@@ -1,7 +1,7 @@
 <?php
 namespace App\Libraries;
 class Helpers {
-    public static function arrayToXml($nomeTagPrincipal, $tagsAuxiliares, $dados){
+    public static function arrayToXml($nomeTagPrincipal, $dados){
         $tagPrincipal = '';
         for ($i=0; $i < count($dados); $i++) { 
             $tagsXML = array_keys($dados[$i]);
@@ -10,13 +10,9 @@ class Helpers {
                 if($dados[$i][$tagsXML[$j]] != ''){
                     
                     if(is_array($dados[$i][$tagsXML[$j]])){
-                        $tagPrincipal .= "<".$tagsXML[$j].">";
-                        if ($tagsXML[$j] == 'Fotos') {
-                            $tagPrincipal .= Helpers::arrayToXml($tagsAuxiliares[0], $tagsAuxiliares, $dados[$i][$tagsXML[$j]]);
-                        }else{
-                            $tagPrincipal .= Helpers::arrayToXml($tagsAuxiliares[1], $tagsAuxiliares, $dados[$i][$tagsXML[$j]]);
-                        }
-                        $tagPrincipal .= "</".$tagsXML[$j].">";
+                        $tagPrincipal.="<Fotos>";
+                        $tagPrincipal .= Helpers::criarTagAuxiliar('Foto', $dados[$i][$tagsXML[$j]]);
+                        $tagPrincipal.="<Fotos>";
                     }else{
                         $tagPrincipal .= "<";
                         $tagPrincipal .= $tagsXML[$j];
@@ -37,4 +33,27 @@ class Helpers {
         }
         return $tagPrincipal;
     }
+
+    public static function criarTagAuxiliar($titleTag, $array){
+        $nameTag = '<Fotos>';
+        foreach ($array as $a) {
+            $nameTag .= "<Foto>";
+            $nameTag .= "<NomeArquivo>";
+            $nameTag .= $a['NomeArquivo'];
+            $nameTag .= "</NomeArquivo>";
+            
+            $nameTag .= "<URLArquivo>";
+            $nameTag .= $a['URLArquivo'];
+            $nameTag .= "</URLArquivo>";
+            
+            $nameTag .= "<Alterada>";
+            $nameTag .= $a['Alterada'];
+            $nameTag .= "</Alterada>";
+            $nameTag .= "</Foto>";
+            
+        }
+        $nameTag .= "</Fotos>";
+        return $nameTag;
+    }
+
 }

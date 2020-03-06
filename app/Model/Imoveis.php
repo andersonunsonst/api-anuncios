@@ -48,10 +48,14 @@ class Imoveis
         LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id");
     }
     public static function getFotosImoveisZapSellf(){
-        return DB::select("SELECT * FROM sellfcom_banco.sf_anuncio_foto");
+        return DB::select('SELECT id, sf_anuncio_id AS IdImovel, imagem AS NomeArquivo, 
+                            CONCAT("https://sellf.com.br/images/anuncio/", imagem) AS URLArquivo,
+                            Principal AS Principal
+                            FROM sellfcom_banco.sf_anuncio_foto AS anunfoto
+                            WHERE sf_anuncio_id IS NOT NULL;');
     }
     public static function getVideosImoveisZapSellf(){
-
+        
     }
 
 }

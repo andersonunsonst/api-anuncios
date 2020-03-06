@@ -11,20 +11,28 @@ class ZapController extends Controller
         $fotosImoveis = Imoveis::getFotosImoveisZapSellf();
 
         $dadosImoveisArray = $this->gerarArrayMulti($dadosImoveis);
-        $fotosArray = $this->gerarArrayMulti($fotosImoveis);
+        $dadosFotosImoveisArray = $this->gerarArrayMulti($fotosImoveis);
+        
+        for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
+            for ($j=0; $j < sizeof($dadosFotosImoveisArray); $j++) { 
+                if($dadosImoveisArray[$i]['CodigoImovel'] == $dadosFotosImoveisArray[$j]['IdImovel']){
+                    
+                    $dadosImoveisArray[$i]['Fotos'][$j]['NomeArquivo'] = $dadosFotosImoveisArray[$j]['NomeArquivo'];
 
-        
-        for ($i=0; $i < sizeof($fotosArray); $i++) { 
-            var_dump($fotosArray[$i]);
-            exit;
+                    $dadosImoveisArray[$i]['Fotos'][$j]['URLArquivo'] = $dadosFotosImoveisArray[$j]['URLArquivo'];
+                    
+                    if($dadosFotosImoveisArray[$j]['Principal'] == 1){
+                        $dadosImoveisArray[$i]['Fotos'][$j]['Principal'] = 1;
+                    }
+                    
+                    $dadosImoveisArray[$i]['Fotos'][$j]['Alterada'] = '1';
+                }
+                
+            }
         }
+        // print_r($dadosImoveisArray);
+        // exit;
         
-        for ($i=0; $i < sizeof($dadosImoveisArray) ; $i++) { 
-            // var_dump($dadosImoveisArray[$i]);
-            var_dump($fotosArray);
-            exit;
-        }
-        // $fotosImoveisArray = $this->gerarArrayMulti($dadosImoveis);
         
         $nomeArquivo = "../xml/zap/IngegracaoSellf.xml";
 
@@ -34,20 +42,17 @@ class ZapController extends Controller
         $conteudoArquivo .= '<Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
         $conteudoArquivo .= '<Imoveis>';
         
-        $tagsAuxiliares = array(
-            0 => 'Foto',
-            1 => 'Video'
-        );
-
-        $tagsImovel = Helpers::arrayToXml('Imovel', $tagsAuxiliares, $dadosImoveisArray);
+        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray);
 
         $conteudoArquivo .= $tagsImovel;
         $conteudoArquivo .= '</Imoveis>';
         $conteudoArquivo .= '</Carga>';
         var_dump($conteudoArquivo);
+        exit;
         fwrite($arquivo, $conteudoArquivo);
         fclose($arquivo); 
     }
+
     public function gerarArrayMulti($object){
         $array = [];
         
