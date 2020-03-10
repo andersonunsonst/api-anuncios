@@ -17,3 +17,7 @@ $router->post("/zap/gerarXml", function(){
     return $controller->gerarXml();
 });
 
+$router->post("/viva/gerarXml", function(){
+    $controller = new App\Http\Controllers\VivaController();
+    return $controller->gerarXml();
+});
