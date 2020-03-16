@@ -12,7 +12,7 @@
 */
 
 //Rotas Zap e VivaReal
-$router->post("/zap/gerarXml", function(){
+$router->get("/zap/gerarXml", function(){
     $controller = new App\Http\Controllers\ZapController();
     return $controller->gerarXml();
 });
