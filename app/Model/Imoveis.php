@@ -33,7 +33,7 @@ class Imoveis
     public static function getImoveisZapSellf(){
         return DB::select("SELECT anun.id AS CodigoImovel, anun.descricao AS Observacao,
         anun.valor AS PrecoVenda, anun.cep AS CEP,
-        anun.logradouro AS Logradouro, anun.numero AS Numero, anun.bairro AS Bairro, anun.estado_id AS UF, anun.cidade_id AS Cidade,
+        anun.logradouro AS Logradouro, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, anun.cidade_id AS Cidade,
         anun.area_util AS AreaUtil, anun.area_util AS AreaTotal, anun.quartos AS QtdDormitorios,
         anun.suites_semar AS QtdSuites, anun.banheiros AS QtdBanheiros, anun.vagas AS QtdVagas,
         anun.iptu AS ValorIPTU, anun.condominio AS PrecoCondominio, anun.mobiliado AS Mobiliado,
@@ -45,7 +45,8 @@ class Imoveis
         anun.sauna_condominio AS Sauna, anun.lavanderia_condominio AS LavanderiaColetiva, anun.churrasqueira_condominio AS Churrasqueira,
         anun.complemento AS Complemento, anun.valor_mensal AS ValorMensal, tipoimo.nome AS SubTipoImovel, tipoimo.nome AS TipoImovel
         FROM sellfcom_banco.sf_anuncio AS anun
-        LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id");
+        LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
+        LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id");
     }
     public static function getFotosImoveisZapSellf(){
         return DB::select('SELECT id, sf_anuncio_id AS IdImovel, imagem AS NomeArquivo, 
@@ -53,9 +54,6 @@ class Imoveis
                             Principal AS Principal
                             FROM sellfcom_banco.sf_anuncio_foto AS anunfoto
                             WHERE sf_anuncio_id IS NOT NULL;');
-    }
-    public static function getVideosImoveisZapSellf(){
-        
     }
 
 }
