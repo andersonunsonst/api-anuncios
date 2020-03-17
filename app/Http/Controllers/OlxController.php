@@ -97,12 +97,6 @@ class OlxController extends Controller
                     $dadosImoveisArray[$i]['Fotos'][$j]['NomeArquivo'] = $dadosFotosImoveisArray[$j]['NomeArquivo'];
 
                     $dadosImoveisArray[$i]['Fotos'][$j]['URLArquivo'] = $dadosFotosImoveisArray[$j]['URLArquivo'];
-                    
-                    if($dadosFotosImoveisArray[$j]['Principal'] == 1){
-                        $dadosImoveisArray[$i]['Fotos'][$j]['Principal'] = 1;
-                    }
-                    
-                    $dadosImoveisArray[$i]['Fotos'][$j]['Alterada'] = '1';
                 }
 
             }

@@ -74,7 +74,7 @@ class Imoveis
         FROM sellfcom_banco.sf_anuncio AS anun
         LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
         LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id
-        LIMIT 30");
+        LIMIT 5");
     }
     public static function getFotosImoveisOlxSellf(){
         return DB::select('SELECT id, sf_anuncio_id AS IdImovel, imagem AS NomeArquivo, 

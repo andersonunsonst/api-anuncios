@@ -44,9 +44,11 @@ class Helpers {
             $nameTag .= $a['URLArquivo'];
             $nameTag .= "</URLArquivo>";
             
-            $nameTag .= "<Alterada>";
-            $nameTag .= $a['Alterada'];
-            $nameTag .= "</Alterada>";
+            if(array_key_exists('Alterada', $a)){
+                $nameTag .= "<Alterada>";
+                $nameTag .= $a['Alterada'];
+                $nameTag .= "</Alterada>";
+            }
             $nameTag .= "</Foto>";
             
         }
