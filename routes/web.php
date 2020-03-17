@@ -17,7 +17,12 @@ $router->get("/zap/gerarXml", function(){
     return $controller->gerarXml();
 });
 
-$router->post("/viva/gerarXml", function(){
+$router->get("/viva/gerarXml", function(){
     $controller = new App\Http\Controllers\VivaController();
+    return $controller->gerarXml();
+});
+
+$router->get("/olx/gerarXml", function(){
+    $controller = new App\Http\Controllers\OlxController();
     return $controller->gerarXml();
 });
