@@ -11,6 +11,9 @@ class ZapController extends Controller
         $fotosImoveis = Imoveis::getFotosImoveisZapSellf();
         
         foreach ($dadosImoveis as $dados) {
+            if($dados->Numero == "" || is_null($dados->Numero)){
+                $dados->Numero = 0;
+            }
             if($dados->TipoImovel == "Apartamento"){
                 $dados->TipoImovel = "Apartamento";
                 $dados->SubTipoImovel = "Apartamento Padrão";

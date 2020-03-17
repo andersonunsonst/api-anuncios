@@ -46,7 +46,8 @@ class Imoveis
         anun.complemento AS Complemento, anun.valor_mensal AS ValorMensal, tipoimo.nome AS SubTipoImovel, tipoimo.nome AS TipoImovel
         FROM sellfcom_banco.sf_anuncio AS anun
         LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
-        LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id");
+        LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id
+        LIMIT 30");
     }
     public static function getFotosImoveisZapSellf(){
         return DB::select('SELECT id, sf_anuncio_id AS IdImovel, imagem AS NomeArquivo, 
