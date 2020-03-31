@@ -93,7 +93,7 @@ class Imoveis
     public static function getImoveisOlxSellf(){
         return DB::select("SELECT anun.id AS CodigoImovel, anun.descricao AS Observacao,
         anun.valor AS PrecoVenda, anun.cep AS CEP,
-        anun.logradouro AS Logradouro, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, anun.cidade_id AS Cidade,
+        anun.logradouro AS Endereco, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, anun.cidade_id AS Cidade,
         anun.area_util AS AreaUtil, anun.area_util AS AreaTotal, anun.quartos AS QtdDormitorios,
         anun.suites_semar AS QtdSuites, anun.banheiros AS QtdBanheiros, anun.vagas AS QtdVagas,
         anun.iptu AS ValorIPTU, anun.condominio AS PrecoCondominio, anun.mobiliado AS Mobiliado,
@@ -139,7 +139,7 @@ class Imoveis
         anun.logradouro AS Logradouro, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, anun.cidade_id AS Cidade,
         anun.area_util AS AreaUtil, anun.area_util AS AreaTotal, anun.quartos AS QtdDormitorios,
         anun.suites_semar AS QtdSuites, anun.banheiros AS QtdBanheiros, anun.vagas AS QtdVagas,
-        anun.iptu AS ValorIPTU, anun.condominio AS PrecoCondominio, anun.mobiliado AS Mobiliado,
+        anun.iptu AS PrecoIptuImovel, anun.condominio AS PrecoCondominio, anun.mobiliado AS Mobiliado,
         anun.armarios_cozinha AS ArmarioCozinha, anun.banheira_hidro AS Hidromassagem,
         anun.area_servico AS AreaServico, anun.tem_varanda AS Varanda, anun.quarto_servico AS QuartoWCEmpregada,
         anun.banheiro_servico AS WCEmpregada, anun.tem_piscina_privativa AS Piscina, anun.quintal AS Quintal, 

@@ -33,8 +33,9 @@ class ImovelWebController extends Controller
 
         $arquivo = fopen($nomeArquivo, 'w+');
     
-        $conteudoArquivo = '<?xml version="1.0" encoding="UTF-8"?>';
-        $conteudoArquivo .= '<Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+         
+        $conteudoArquivo = '<?xml version="1.0" encoding="iso-8859-1"?>';
+        $conteudoArquivo .= '<Carga xmlns:xsi="http://www.w3.org/2001/XMLSchemainstance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> ';
         $conteudoArquivo .= '<Imoveis>';
         
         $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray);
