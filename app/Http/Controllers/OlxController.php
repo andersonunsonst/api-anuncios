@@ -1,5 +1,16 @@
 <?php
 
+/**  
+* Controller que contém as regras de geração de XML 
+* e interações da integração OLX
+*
+* @author Kevin Silva <kevinsilvatec@gmail.com>
+* @version 1.0
+* @access public  
+* @package Controllers 
+*
+*/ 
+
 namespace App\Http\Controllers;
 use App\Libraries\Helpers;
 use App\Model\Imoveis;
@@ -7,102 +18,18 @@ use App\Model\Imoveis;
 class OlxController extends Controller
 {
     public function gerarXml(){
-        $dadosImoveis = Imoveis::getImoveisOlxSellf();
-        $fotosImoveis = Imoveis::getFotosImoveisOlxSellf();
+        $dadosImoveis = Imoveis::getImoveisImovelWebSellf();
+        $fotosImoveis = Imoveis::getFotosImoveisImovelWebSellf();
         
-        foreach ($dadosImoveis as $dados) {
-            if($dados->Numero == "" || is_null($dados->Numero)){
-                $dados->Numero = 0;
-            }
-            if($dados->TipoImovel == "Apartamento"){
-                $dados->TipoImovel = "Apartamento";
-                $dados->SubTipoImovel = "Apartamento Padrão";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Andar-pilotis"){
-                $dados->TipoImovel = "Apartamento";
-                $dados->SubTipoImovel = "Apartamento Padrão";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Área Privativa"){
-                $dados->TipoImovel = "Apartamento";
-                $dados->SubTipoImovel = "Apartamento Padrão";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Barracão"){
-                $dados->TipoImovel = "Apartamento";
-                $dados->SubTipoImovel = "Apartamento Padrão";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Barracão"){
-                $dados->TipoImovel = "Casa";
-                $dados->SubTipoImovel = "Casa Padrão";
-                $dados->CategoriaImovel = 'Térrea';
-            }else if($dados->TipoImovel == "Barracão"){
-                $dados->TipoImovel = "Casa";
-                $dados->SubTipoImovel = "Casa Padrão";
-                $dados->CategoriaImovel = 'Térrea';
-            }else if($dados->TipoImovel == "Casa"){
-                $dados->TipoImovel = "Casa";
-                $dados->SubTipoImovel = "Casa Padrão";
-                $dados->CategoriaImovel = 'Térrea';
-            }else if($dados->TipoImovel == "Casa Comercial"){
-                $dados->TipoImovel = "Comercial/Industrial";
-                $dados->SubTipoImovel = "Casa Comercial";
-                $dados->CategoriaImovel = 'Térrea';
-            }else if($dados->TipoImovel == "Casa em Condomínio"){
-                $dados->TipoImovel = "Casa";
-                $dados->SubTipoImovel = "Casa de Condomínio";
-                $dados->CategoriaImovel = 'Térrea';
-            }else if($dados->TipoImovel == "Fazenda"){
-                $dados->TipoImovel = "Rural";
-                $dados->SubTipoImovel = "Fazenda";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Hotel Fazenda"){
-                $dados->TipoImovel = "Rural";
-                $dados->SubTipoImovel = "Fazenda";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Kitchenette"){
-                $dados->TipoImovel = "Apartamento";
-                $dados->SubTipoImovel = "Kitchenette/Conjugados";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Loja"){
-                $dados->TipoImovel = "Comercial/Industrial";
-                $dados->SubTipoImovel = "Loja/Salão";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Lote-Terreno"){
-                $dados->TipoImovel = "Terreno";
-                $dados->SubTipoImovel = "Terreno Padrão";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Sala"){
-                $dados->TipoImovel = "Comercial/Industrial";
-                $dados->SubTipoImovel = "Conjunto Comercial/Sala";
-                $dados->CategoriaImovel = 'Padrão';
-            }else if($dados->TipoImovel == "Sitio"){
-                $dados->TipoImovel = "Rural";
-                $dados->SubTipoImovel = "Sítio";
-                $dados->CategoriaImovel = 'Padrão';
-            }else{
-                $dados->TipoImovel = "Casa";
-                $dados->SubTipoImovel = "Casa Padrão";
-                $dados->CategoriaImovel = 'Térrea';
-            }
-        }
-
-        $dadosImoveisArray = $this->gerarArrayMulti($dadosImoveis);
-        $dadosFotosImoveisArray = $this->gerarArrayMulti($fotosImoveis);
+        $dadosImoveis = Helpers::adaptarTipos($dadosImoveis);
         
-        for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
-            
-            for ($j=0; $j < sizeof($dadosFotosImoveisArray); $j++) { 
-                
-                if($dadosImoveisArray[$i]['CodigoImovel'] == $dadosFotosImoveisArray[$j]['IdImovel']){
-                    
-                    $dadosImoveisArray[$i]['Fotos'][$j]['NomeArquivo'] = $dadosFotosImoveisArray[$j]['NomeArquivo'];
-
-                    $dadosImoveisArray[$i]['Fotos'][$j]['URLArquivo'] = $dadosFotosImoveisArray[$j]['URLArquivo'];
-                }
-
-            }
-        }
+        $dadosImoveisArray = Helpers::gerarArrayMulti($dadosImoveis);
+        $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
+        
+        $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray);
 
         $nomeArquivo = "../xml/olx/IntegracaoSellf.xml";
+        $nomeArquivoExibicao = "IntegracaoSellf.xml";
 
         $arquivo = fopen($nomeArquivo, 'w+');
     
@@ -116,17 +43,8 @@ class OlxController extends Controller
         $conteudoArquivo .= $tagsImovel;
         $conteudoArquivo .= '</Imoveis>';
         $conteudoArquivo .= '</Carga>';
-        fwrite($arquivo, $conteudoArquivo);
-        fclose($arquivo); 
-    }
 
-    public function gerarArrayMulti($object){
-        $array = [];
+        return Helpers::criarArquivo($nomeArquivoExibicao, $arquivo, $conteudoArquivo);
         
-        for ($i=0; $i < sizeof($object); $i++) { 
-            # code...
-            array_push($array, get_object_vars($object[$i]));
-        }
-        return $array;
     }
 }

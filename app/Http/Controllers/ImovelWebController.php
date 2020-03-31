@@ -2,7 +2,7 @@
 
 /**  
 * Controller que contém as regras de geração de XML 
-* e interações da integração Zap Imóveis
+* e interações da integração ImovelWeb
 *
 * @author Kevin Silva <kevinsilvatec@gmail.com>
 * @version 1.0
@@ -15,7 +15,7 @@ namespace App\Http\Controllers;
 use App\Libraries\Helpers;
 use App\Model\Imoveis;
 
-class ZapController extends Controller
+class ImovelWebController extends Controller
 {
     public function gerarXml(){
         $dadosImoveis = Imoveis::getImoveisImovelWebSellf();
@@ -27,10 +27,9 @@ class ZapController extends Controller
         $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
         
         $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray);
-        
 
-        $nomeArquivo = "../xml/zap/IntegracaoSellf.xml";
-        $nomeArquivoExibicao = "IntegracaoSellf.xml";
+        $nomeArquivo = "../xml/imovelweb/iw_ofertas.xml";
+        $nomeArquivoExibicao = "iw_ofertas.xml";
 
         $arquivo = fopen($nomeArquivo, 'w+');
     
