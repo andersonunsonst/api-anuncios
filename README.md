@@ -1,12 +1,12 @@
 # anuncios
-Gateway de anuncios imobiliarios
+Gateway de anuncios imobiliários da Sellf
 
 ## endpoint /zap/gerarXml
-**Chamado por método GET**
+###### **Chamado por método GET**
 Esse endpoint faz a geração do XML no padrão definido pela Zap Imóveis. O XML é salvo em:
 */xml/zap/IntegracaoSellf.xml*
 
-**Retorno do endpoint**
+###### **Retorno do endpoint**
 Em caso de geração OK do arquivo, o seguinte retorno é informado:
 *{*
     *"codigo":"200",*
@@ -20,11 +20,11 @@ Em caso de erro, é retornado o seguinte jSON:
 
 
 ## endpoint /olx/gerarXml
-**Chamado por método GET**
+###### **Chamado por método GET**
 Esse endpoint faz a geração do XML no padrão definido pela OLX. O XML é salvo em:
 */xml/olx/IntegracaoSellf.xml*
 
-**Retorno do endpoint**
+###### **Retorno do endpoint**
 Em caso de geração OK do arquivo, o seguinte retorno é informado:
 *{*
     *"codigo":"200",*
@@ -38,11 +38,11 @@ Em caso de erro, é retornado o seguinte jSON:
 
 
 ## endpoint /imovelweb/gerarXml
-**Chamado por método GET**
+###### **Chamado por método GET**
 Esse endpoint faz a geração do XML no padrão definido pela Imóvel Web. O XML é salvo em:
 */xml/olx/IntegracaoSellf.xml*
 
-**Retorno do endpoint**
+###### **Retorno do endpoint**
 Em caso de geração OK do arquivo, o seguinte retorno é informado:
 *{*
     *"codigo":"200",*
