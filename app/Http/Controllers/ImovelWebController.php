@@ -10,7 +10,6 @@
 * @package Controllers 
 *
 */ 
-
 namespace App\Http\Controllers;
 use App\Libraries\Helpers;
 use App\Model\Imoveis;
@@ -26,7 +25,8 @@ class ImovelWebController extends Controller
         $dadosImoveisArray = Helpers::gerarArrayMulti($dadosImoveis);
         $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
         
-        $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray);
+        $tipoIntegracao = 'imovelweb';
+        $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray, $tipoIntegracao);
 
         $nomeArquivo = "../xml/imovelweb/iw_ofertas.xml";
         $nomeArquivoExibicao = "iw_ofertas.xml";

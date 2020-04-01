@@ -131,9 +131,13 @@ class Helpers {
     * @return Array 
     *
     */ 
-    public static function mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray){
+    public static function mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray, $tipoIntegracao){
         for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
             
+            if($tipoIntegracao == "imovelweb"){
+                $dadosImoveisArray[$i]["CodigoCentralVendas"] = "";
+            }
+
             for ($j=0; $j < sizeof($dadosFotosImoveisArray); $j++) { 
                 
                 if($dadosImoveisArray[$i]['CodigoImovel'] == $dadosFotosImoveisArray[$j]['IdImovel']){
@@ -142,8 +146,11 @@ class Helpers {
                     if($dadosFotosImoveisArray[$j]['Principal'] && $dadosFotosImoveisArray[$j]['Principal'] == 1){
                         $dadosImoveisArray[$i]['Fotos'][$j]['Principal'] = 1;
                     }
-                    $dadosImoveisArray[$i]['Fotos'][$j]['Alterada'] = '1';
+                    if($tipoIntegracao == "zap" || $tipoIntegracao == "olx"){
+                        $dadosImoveisArray[$i]['Fotos'][$j]['Alterada'] = '1';
+                    }
                 }
+                
             }
 
         }
@@ -172,16 +179,26 @@ class Helpers {
                     
                     if(is_array($dados[$i][$tagsXML[$j]])){
                         $tagPrincipal .= Helpers::criarTagAuxiliar('Fotos','Foto', $dados[$i][$tagsXML[$j]]);
-                    }else{
-                        $tagPrincipal .= "<";
-                        $tagPrincipal .= $tagsXML[$j];
-                        $tagPrincipal .= ">";
-                        $tagPrincipal .= $dados[$i][$tagsXML[$j]];
-                        $tagPrincipal .= "</";
-                        $tagPrincipal .= $tagsXML[$j];
-                        $tagPrincipal .= ">";    
-                    }
-                    
+                    }else{    
+                        if($dados[$i][$tagsXML[$j]] == 'Observacao'){
+                            $tagPrincipal .= "<";
+                            $tagPrincipal .= $tagsXML[$j];
+                            $tagPrincipal .= ">";
+                            $tagPrincipal .= "<![CDATA[".$dados[$i][$tagsXML[$j]]."]]>";
+                            $tagPrincipal .= "</";
+                            $tagPrincipal .= $tagsXML[$j];
+                            $tagPrincipal .= ">";
+                        }else{
+                            $tagPrincipal .= "<";
+                            $tagPrincipal .= $tagsXML[$j];
+                            $tagPrincipal .= ">";
+                            $tagPrincipal .= $dados[$i][$tagsXML[$j]];
+                            $tagPrincipal .= "</";
+                            $tagPrincipal .= $tagsXML[$j];
+                            $tagPrincipal .= ">";    
+                        }
+                    }     
+
                 }else{
                     $tagPrincipal .= "<";
                     $tagPrincipal .= $tagsXML[$j];
@@ -253,7 +270,6 @@ class Helpers {
             $retorno['codigo'] = "500";
             $retorno['mensagem'] = "Ocorreu um erro ao tentar criar o arquivo!";
         }
-
         return json_encode($retorno);
     }
 

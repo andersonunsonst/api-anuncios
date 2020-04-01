@@ -26,7 +26,8 @@ class ZapController extends Controller
         $dadosImoveisArray = Helpers::gerarArrayMulti($dadosImoveis);
         $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
         
-        $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray);
+        $tipoIntegracao = "zap";
+        $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray, $tipoIntegracao);
         
 
         $nomeArquivo = "../xml/zap/IntegracaoSellf.xml";

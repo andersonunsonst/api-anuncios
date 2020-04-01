@@ -26,7 +26,8 @@ class OlxController extends Controller
         $dadosImoveisArray = Helpers::gerarArrayMulti($dadosImoveis);
         $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
         
-        $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray);
+        $tipoIntegracao = "zap";
+        $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray, $tipoIntegracao);
 
         $nomeArquivo = "../xml/olx/IntegracaoSellf.xml";
         $nomeArquivoExibicao = "IntegracaoSellf.xml";
