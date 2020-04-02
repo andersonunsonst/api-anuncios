@@ -50,7 +50,7 @@ class Imoveis
     public static function getImoveisZapSellf(){
         return DB::select("SELECT anun.id AS CodigoImovel, anun.descricao AS Observacao,
         anun.valor AS PrecoVenda, anun.cep AS CEP,
-        anun.logradouro AS Endereco, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, anun.cidade_id AS Cidade,
+        anun.logradouro AS Endereco, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, cidade.nome AS Cidade,
         anun.area_util AS AreaUtil, anun.area_util AS AreaTotal, anun.quartos AS QtdDormitorios,
         anun.suites_semar AS QtdSuites, anun.banheiros AS QtdBanheiros, anun.vagas AS QtdVagas,
         anun.iptu AS ValorIPTU, anun.condominio AS PrecoCondominio, anun.mobiliado AS Mobiliado,
@@ -63,6 +63,7 @@ class Imoveis
         anun.complemento AS Complemento, anun.valor_mensal AS ValorMensal, tipoimo.nome AS SubTipoImovel, tipoimo.nome AS TipoImovel
         FROM sellfcom_banco.sf_anuncio AS anun
         LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
+        LEFT JOIN sellfcom_banco.cidade as cidade ON anun.cidade_id = cidade.id
         LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id");
     }
 
@@ -93,7 +94,7 @@ class Imoveis
     public static function getImoveisOlxSellf(){
         return DB::select("SELECT anun.id AS CodigoImovel, anun.descricao AS Observacao,
         anun.valor AS PrecoVenda, anun.cep AS CEP,
-        anun.logradouro AS Endereco, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, anun.cidade_id AS Cidade,
+        anun.logradouro AS Endereco, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, cidade.nome AS Cidade,
         anun.area_util AS AreaUtil, anun.area_util AS AreaTotal, anun.quartos AS QtdDormitorios,
         anun.suites_semar AS QtdSuites, anun.banheiros AS QtdBanheiros, anun.vagas AS QtdVagas,
         anun.iptu AS ValorIPTU, anun.condominio AS PrecoCondominio, anun.mobiliado AS Mobiliado,
@@ -106,6 +107,7 @@ class Imoveis
         anun.complemento AS Complemento, anun.valor_mensal AS ValorMensal, tipoimo.nome AS SubTipoImovel, tipoimo.nome AS TipoImovel
         FROM sellfcom_banco.sf_anuncio AS anun
         LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
+        LEFT JOIN sellfcom_banco.cidade as cidade ON anun.cidade_id = cidade.id
         LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id");
     }
 
@@ -136,7 +138,7 @@ class Imoveis
     public static function getImoveisImovelWebSellf(){
         return DB::select("SELECT anun.id AS CodigoImovel, anun.descricao AS Observacao,
         anun.valor AS PrecoVenda, anun.cep AS CEP,
-        anun.logradouro AS Logradouro, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, anun.cidade_id AS Cidade,
+        anun.logradouro AS Logradouro, anun.numero AS Numero, anun.bairro AS Bairro, estado.sigla AS UF, cidade.nome AS Cidade,
         anun.area_util AS AreaUtil, anun.area_util AS AreaTotal, anun.quartos AS QtdDormitorios,
         anun.suites_semar AS QtdSuites, anun.banheiros AS QtdBanheiros, anun.vagas AS QtdVagas,
         anun.iptu AS PrecoIptuImovel, anun.condominio AS PrecoCondominio, anun.mobiliado AS Mobiliado,
@@ -149,6 +151,7 @@ class Imoveis
         anun.complemento AS Complemento, anun.valor_mensal AS ValorMensal, tipoimo.nome AS SubTipoImovel, tipoimo.nome AS TipoImovel
         FROM sellfcom_banco.sf_anuncio AS anun
         LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
+        LEFT JOIN sellfcom_banco.cidade as cidade ON anun.cidade_id = cidade.id
         LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id
         LIMIT 1");
     }
