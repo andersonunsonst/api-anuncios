@@ -18,6 +18,7 @@ use App\Model\Imoveis;
 class ZapController extends Controller
 {
     public function gerarXml(){
+        $tipoIntegracao = "zap";
         $dadosImoveis = Imoveis::getImoveisImovelWebSellf();
         $fotosImoveis = Imoveis::getFotosImoveisImovelWebSellf();
         
@@ -26,7 +27,6 @@ class ZapController extends Controller
         $dadosImoveisArray = Helpers::gerarArrayMulti($dadosImoveis);
         $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
         
-        $tipoIntegracao = "zap";
         $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray, $tipoIntegracao);
         
 
@@ -39,7 +39,7 @@ class ZapController extends Controller
         $conteudoArquivo .= '<Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
         $conteudoArquivo .= '<Imoveis>';
         
-        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray);
+        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray, $tipoIntegracao);
 
         $conteudoArquivo .= $tagsImovel;
         $conteudoArquivo .= '</Imoveis>';

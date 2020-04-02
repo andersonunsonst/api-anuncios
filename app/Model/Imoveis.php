@@ -152,8 +152,7 @@ class Imoveis
         FROM sellfcom_banco.sf_anuncio AS anun
         LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
         LEFT JOIN sellfcom_banco.cidade as cidade ON anun.cidade_id = cidade.id
-        LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id
-        LIMIT 1");
+        LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id");
     }
 
     /** 

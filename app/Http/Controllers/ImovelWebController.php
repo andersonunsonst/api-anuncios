@@ -17,6 +17,7 @@ use App\Model\Imoveis;
 class ImovelWebController extends Controller
 {
     public function gerarXml(){
+        $tipoIntegracao = 'imovelweb';
         $dadosImoveis = Imoveis::getImoveisImovelWebSellf();
         $fotosImoveis = Imoveis::getFotosImoveisImovelWebSellf();
         
@@ -25,7 +26,6 @@ class ImovelWebController extends Controller
         $dadosImoveisArray = Helpers::gerarArrayMulti($dadosImoveis);
         $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
         
-        $tipoIntegracao = 'imovelweb';
         $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray, $tipoIntegracao);
 
         $nomeArquivo = "../xml/imovelweb/iw_ofertas.xml";
@@ -38,7 +38,7 @@ class ImovelWebController extends Controller
         $conteudoArquivo .= '<Carga xmlns:xsi="http://www.w3.org/2001/XMLSchemainstance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> ';
         $conteudoArquivo .= '<Imoveis>';
         
-        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray);
+        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray, $tipoIntegracao);
 
         $conteudoArquivo .= $tagsImovel;
         $conteudoArquivo .= '</Imoveis>';

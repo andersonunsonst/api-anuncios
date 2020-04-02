@@ -167,7 +167,7 @@ class Helpers {
     * @return String 
     *
     */ 
-    public static function arrayToXml($nomeTagPrincipal, $dados){
+    public static function arrayToXml($nomeTagPrincipal, $dados, $tipoIntegracao){
         $tagPrincipal = '';
         for ($i=0; $i < count($dados); $i++) { 
             
@@ -176,7 +176,9 @@ class Helpers {
             for ( $j = 0; $j < count($tagsXML); $j++ ) {
                 
                 if($dados[$i][$tagsXML[$j]] != ''){
-                    
+                    if($tipoIntegracao == 'imovelweb'){
+                        $dados[$i][$tagsXML[$j]] = mb_convert_encoding($dados[$i][$tagsXML[$j]], 'ISO-8859-1');
+                    }
                     if(is_array($dados[$i][$tagsXML[$j]])){
                         $tagPrincipal .= Helpers::criarTagAuxiliar('Fotos','Foto', $dados[$i][$tagsXML[$j]]);
                     }else{    

@@ -18,6 +18,7 @@ use App\Model\Imoveis;
 class OlxController extends Controller
 {
     public function gerarXml(){
+        $tipoIntegracao = "olx";
         $dadosImoveis = Imoveis::getImoveisImovelWebSellf();
         $fotosImoveis = Imoveis::getFotosImoveisImovelWebSellf();
         
@@ -26,7 +27,6 @@ class OlxController extends Controller
         $dadosImoveisArray = Helpers::gerarArrayMulti($dadosImoveis);
         $dadosFotosImoveisArray = Helpers::gerarArrayMulti($fotosImoveis);
         
-        $tipoIntegracao = "zap";
         $dadosImoveisArray = Helpers::mergeImoveisFotos($dadosImoveisArray, $dadosFotosImoveisArray, $tipoIntegracao);
 
         $nomeArquivo = "../xml/olx/IntegracaoSellf.xml";
@@ -39,7 +39,7 @@ class OlxController extends Controller
         $conteudoArquivo .= '<CodigoCliente />';
         $conteudoArquivo .= '<Imoveis>';
         
-        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray);
+        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray, $tipoIntegracao);
 
         $conteudoArquivo .= $tagsImovel;
         $conteudoArquivo .= '</Imoveis>';
