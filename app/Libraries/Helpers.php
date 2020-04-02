@@ -135,7 +135,7 @@ class Helpers {
         for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
             
             if($tipoIntegracao == "imovelweb"){
-                $dadosImoveisArray[$i]["CodigoCentralVendas"] = "";
+                $dadosImoveisArray[$i]["CodigoCentralVendas"] = "47332310";
             }
 
             for ($j=0; $j < sizeof($dadosFotosImoveisArray); $j++) { 
