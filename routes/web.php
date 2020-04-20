@@ -10,12 +10,6 @@ $router->get("/zap/gerarXml", function(){
     return $controller->gerarXml();
 });
 
-//Rotas VivaReal
-$router->get("/viva/gerarXml", function(){
-    $controller = new App\Http\Controllers\VivaController();
-    return $controller->gerarXml();
-});
-
 //Rotas OLX
 $router->get("/olx/gerarXml", function(){
     $controller = new App\Http\Controllers\OlxController();
@@ -25,5 +19,11 @@ $router->get("/olx/gerarXml", function(){
 //Rotas ImovelWeb
 $router->get("/imovelweb/gerarXml", function(){
     $controller = new App\Http\Controllers\ImovelWebController();
+    return $controller->gerarXml();
+});
+
+//Rotas Mercado Livre
+$router->get("/mercadolivre/gerarXml", function(){
+    $controller = new App\Http\Controllers\MercadoLivreController();
     return $controller->gerarXml();
 });

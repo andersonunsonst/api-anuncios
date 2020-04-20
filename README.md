@@ -40,13 +40,30 @@ Em caso de erro, é retornado o seguinte jSON:
 ## endpoint /imovelweb/gerarXml
 ###### **Chamado por método GET**
 Esse endpoint faz a geração do XML no padrão definido pela Imóvel Web. O XML é salvo em:
-*/xml/olx/IntegracaoSellf.xml*
+*/xml/imovelweb/IntegracaoSellf.xml*
 
 ###### **Retorno do endpoint**
 Em caso de geração OK do arquivo, o seguinte retorno é informado:
 *{*
     *"codigo":"200",*
     *"mensagem":"Arquivo iw_ofertas.xml criado com Sucesso!"*
+*}*
+Em caso de erro, é retornado o seguinte jSON:
+*{*
+    *"codigo":"500",*
+    *"mensagem":"Ocorreu um erro ao tentar criar o arquivo!"*
+*}*
+
+## endpoint /mercadolivre/gerarXml
+###### **Chamado por método GET**
+Esse endpoint faz a geração do XML no padrão definido pela Imóvel Web. O XML é salvo em:
+*/xml/mercadolivre/IntegracaoSellf.xml*
+
+###### **Retorno do endpoint**
+Em caso de geração OK do arquivo, o seguinte retorno é informado:
+*{*
+    *"codigo":"200",*
+    *"mensagem":"Arquivo IntegracaoSellf.xml criado com Sucesso!"*
 *}*
 Em caso de erro, é retornado o seguinte jSON:
 *{*

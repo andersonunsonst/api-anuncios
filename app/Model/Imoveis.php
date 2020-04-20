@@ -171,4 +171,55 @@ class Imoveis
                             WHERE sf_anuncio_id IS NOT NULL;');
     }
 
+     /** 
+    * Função que busca os imóveis da Sellf para Mercado Livre
+    *    
+    * @name getImoveisMercadoLivreSellf
+    * @access public 
+    * @return StdClass object
+    *
+    */
+    public static function getImoveisMercadoLivreSellf(){
+        return DB::select("SELECT anun.id AS imovelId, anun.descricao AS description,
+        CONCAT(tipoimo.nome, ' > Venda > Propriedades Individuais') as category,
+        anun.valor AS price, tipoimo.nome AS title
+        FROM sellfcom_banco.sf_anuncio AS anun
+        LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
+        LEFT JOIN sellfcom_banco.cidade as cidade ON anun.cidade_id = cidade.id
+        LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id");
+    }
+
+    /** 
+    * Função que busca as fotos dos imóveis da Sellf para Mercado Livre
+    *    
+    * @name getFotosImoveisMercadoLivreSellf
+    * @access public 
+    * @return StdClass object
+    *
+    */
+    public static function getFotosImoveisMercadoLivreSellf(){
+        return DB::select('SELECT id, sf_anuncio_id AS IdImovel, 
+                            CONCAT("https://sellf.com.br/images/anuncio/", imagem) AS imageURL
+                            FROM sellfcom_banco.sf_anuncio_foto
+                            WHERE sf_anuncio_id IS NOT NULL;');
+    }
+
+    public static function getLocalizacaoImoveisMercadoLivreSellf(){
+        return DB::select('SELECT anun.id AS imovelId, anun.cep AS zipCode,
+                           anun.logradouro AS addressLine, anun.bairro AS neighborhood, estado.nome AS state, cidade.nome AS city
+                           FROM sellfcom_banco.sf_anuncio AS anun
+                           LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
+                           LEFT JOIN sellfcom_banco.cidade as cidade ON anun.cidade_id = cidade.id
+                           LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id;');
+    }
+
+    public static function getAtributosImoveisMercadoLivreSellf(){
+        return DB::select('SELECT anun.id AS imovelId, anun.area_util AS area_util, anun.area_util AS area_total, anun.quartos AS quartos,
+                            anun.banheiros AS banheiros, anun.armarios_cozinha AS armarios_embutidos
+                            FROM sellfcom_banco.sf_anuncio AS anun
+                            LEFT JOIN sellfcom_banco.tipo_imovel AS tipoimo ON anun.tipo_imovel_id = tipoimo.id
+                            LEFT JOIN sellfcom_banco.cidade as cidade ON anun.cidade_id = cidade.id
+                            LEFT JOIN sellfcom_banco.estado ON anun.estado_id = estado.id');
+    }
+
 }

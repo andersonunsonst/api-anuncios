@@ -139,17 +139,23 @@ class Helpers {
             }
 
             for ($j=0; $j < sizeof($dadosFotosImoveisArray); $j++) { 
-                
-                if($dadosImoveisArray[$i]['CodigoImovel'] == $dadosFotosImoveisArray[$j]['IdImovel']){
-                    $dadosImoveisArray[$i]['Fotos'][$j]['NomeArquivo'] = $dadosFotosImoveisArray[$j]['NomeArquivo'];
-                    $dadosImoveisArray[$i]['Fotos'][$j]['URLArquivo'] = $dadosFotosImoveisArray[$j]['URLArquivo'];
-                    if($dadosFotosImoveisArray[$j]['Principal'] && $dadosFotosImoveisArray[$j]['Principal'] == 1){
-                        $dadosImoveisArray[$i]['Fotos'][$j]['Principal'] = 1;
+                if($tipoIntegracao == "mercadolivre"){
+                    if($dadosImoveisArray[$i]['imovelId'] == $dadosFotosImoveisArray[$j]['IdImovel']){
+                        $dadosImoveisArray[$i]['pictures'][$j]['imageURL'] = $dadosFotosImoveisArray[$j]['imageURL'];
                     }
-                    if($tipoIntegracao == "zap" || $tipoIntegracao == "olx"){
-                        $dadosImoveisArray[$i]['Fotos'][$j]['Alterada'] = '1';
+                }else{
+                    if($dadosImoveisArray[$i]['CodigoImovel'] == $dadosFotosImoveisArray[$j]['IdImovel']){
+                        $dadosImoveisArray[$i]['Fotos'][$j]['NomeArquivo'] = $dadosFotosImoveisArray[$j]['NomeArquivo'];
+                        $dadosImoveisArray[$i]['Fotos'][$j]['URLArquivo'] = $dadosFotosImoveisArray[$j]['URLArquivo'];
+                        if($dadosFotosImoveisArray[$j]['Principal'] && $dadosFotosImoveisArray[$j]['Principal'] == 1){
+                            $dadosImoveisArray[$i]['Fotos'][$j]['Principal'] = 1;
+                        }
+                        if($tipoIntegracao == "zap" || $tipoIntegracao == "olx"){
+                            $dadosImoveisArray[$i]['Fotos'][$j]['Alterada'] = '1';
+                        }
                     }
                 }
+                
                 
             }
 
@@ -180,9 +186,15 @@ class Helpers {
                         $dados[$i][$tagsXML[$j]] = mb_convert_encoding($dados[$i][$tagsXML[$j]], 'ISO-8859-1');
                     }
                     if(is_array($dados[$i][$tagsXML[$j]])){
-                        $tagPrincipal .= Helpers::criarTagAuxiliar('Fotos','Foto', $dados[$i][$tagsXML[$j]]);
+                        if($tipoIntegracao == "mercadolivre"){
+                            // var_dump($dados[$i][$tagsXML[$j]][0]);
+                            // exit;
+                            $tagPrincipal .= Helpers::criarTagsAuxiliaresMl($dados[$i][$tagsXML[$j]]);
+                        }else{
+                            $tagPrincipal .= Helpers::criarTagAuxiliar('Fotos','Foto', $dados[$i][$tagsXML[$j]]);
+                        }
                     }else{    
-                        if($dados[$i][$tagsXML[$j]] == 'Observacao'){
+                        if($dados[$i][$tagsXML[$j]] == 'Observacao' || $dados[$i][$tagsXML[$j]] == 'description'|| $dados[$i][$tagsXML[$j]] == 'category'){
                             $tagPrincipal .= "<";
                             $tagPrincipal .= $tagsXML[$j];
                             $tagPrincipal .= ">";
@@ -252,6 +264,143 @@ class Helpers {
     }
 
     /** 
+    * Função para criar as tags auxiliares do Mercado Livre
+    *    
+    * @name criarTagsAuxiliaresMl
+    * @access public 
+    * @param Array $array
+    * @return String 
+    *
+    */ 
+    public static function criarTagsAuxiliaresMl($array){
+        
+        
+        foreach ($array as $a) {
+            if(array_key_exists('imageURL', $a)){
+                $parentTag = 'pictures';
+            }else if(array_key_exists('addressLine', $a)){
+                $parentTag = 'location';
+            }else if(array_key_exists('contact', $a)){
+                $parentTag = 'sellerContact';
+            }else{
+                $parentTag = 'attributes';
+            }
+        }
+
+        $nameTag = '<'.$parentTag.'>';
+        
+        if($parentTag == 'pictures'){
+            
+            foreach ($array as $a) {
+                $nameTag .= "<imageURL>";
+                $nameTag .= $a['imageURL'];
+                $nameTag .= "</imageURL>";
+            }
+
+        }else if($parentTag == 'location'){
+            foreach ($array as $a) {
+                $nameTag .= "<addressLine>";
+                $nameTag .= $a['addressLine'];
+                $nameTag .= "</addressLine>";
+                
+                $nameTag .= "<zipCode>";
+                $nameTag .= $a['zipCode'];
+                $nameTag .= "</zipCode>";
+                
+                $nameTag .= "<neighborhood>";
+                $nameTag .= $a['neighborhood'];
+                $nameTag .= "</neighborhood>";
+    
+                $nameTag .= "<zipCode>";
+                $nameTag .= $a['zipCode'];
+                $nameTag .= "</zipCode>";
+                
+                $nameTag .= "<city>";
+                $nameTag .= $a['city'];
+                $nameTag .= "</city>";
+    
+                $nameTag .= "<state>";
+                $nameTag .= $a['state'];
+                $nameTag .= "</state>";
+    
+                $nameTag .= "<country>";
+                $nameTag .= $a['country'];
+                $nameTag .= "</country>";
+            }
+        }else if($parentTag == 'sellerContact'){
+            foreach ($array as $a) {
+                $nameTag .= "<contact>";
+                $nameTag .= $a['contact'];
+                $nameTag .= "</contact>";
+                
+                $nameTag .= "<otherInfo>";
+                $nameTag .= $a['otherInfo'];
+                $nameTag .= "</otherInfo>";
+                
+                $nameTag .= "<areaCode>";
+                $nameTag .= $a['areaCode'];
+                $nameTag .= "</areaCode>";
+    
+                $nameTag .= "<phone>";
+                $nameTag .= $a['phone'];
+                $nameTag .= "</phone>";
+                
+                $nameTag .= "<email>";
+                $nameTag .= $a['email'];
+                $nameTag .= "</email>";
+    
+                $nameTag .= "<webpage>";
+                $nameTag .= $a['webpage'];
+                $nameTag .= "</webpage>";
+                
+            }
+        }else if($parentTag == 'attributes'){
+            for ($i=0; $i < sizeof($array); $i++) { 
+                $nameTag .= "<attribute>";
+                $nameTag .= "<name>";
+                $nameTag .= $a['name'];
+                $nameTag .= "</name>";
+                $nameTag .= "<value>";
+                $nameTag .= $a['value'];
+                $nameTag .= "</value>";
+                $nameTag .= "</attribute>";
+            }
+
+        }
+
+        $nameTag .= '</'.$parentTag.'>';
+        return $nameTag;
+    }
+
+    // /** 
+    // * Função para criar as tags auxiliares do Mercado Livre
+    // *    
+    // * @name criarTagsAuxiliaresMl
+    // * @access public 
+    // * @param String $parentTag
+    // * @param Array $array
+    // * @return String 
+    // *
+    // */ 
+    // public static function criarTagFotoAuxiliarMl($parentTag, $array){
+    //     $nameTag = '<'.$parentTag.'>';
+        
+    //     foreach ($array as $a) {
+            
+    //         $nameTag .= "<imageURL>";
+    //         $nameTag .= $a['imageURL'];
+    //         $nameTag .= "</imageURL>";
+    //     }
+
+    //     $nameTag .= '</'.$parentTag.'>';
+    //     return $nameTag;
+    // }
+
+    
+
+    
+
+    /** 
     * Função para criar o arquivo. Retorna a mensagem de erro ou sucesso
     *    
     * @name criarArquivo
@@ -273,6 +422,128 @@ class Helpers {
             $retorno['mensagem'] = "Ocorreu um erro ao tentar criar o arquivo!";
         }
         return json_encode($retorno);
+    }
+
+    public static function mergeDadosVendedor($dadosImoveisArray, $blocoPadrao){
+        
+        for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
+            for ($j=0; $j < sizeof($blocoPadrao['sellerContact']); $j++) {                     
+                    $dadosImoveisArray[$i]['sellerContact'][0]['contact'] = $blocoPadrao['sellerContact']['contact'];
+                    $dadosImoveisArray[$i]['sellerContact'][0]['otherInfo'] = $blocoPadrao['sellerContact']['otherInfo'];
+                    $dadosImoveisArray[$i]['sellerContact'][0]['areaCode'] = $blocoPadrao['sellerContact']['areaCode'];
+                    $dadosImoveisArray[$i]['sellerContact'][0]['phone'] = $blocoPadrao['sellerContact']['phone'];
+                    $dadosImoveisArray[$i]['sellerContact'][0]['email'] = $blocoPadrao['sellerContact']['email'];
+                    $dadosImoveisArray[$i]['sellerContact'][0]['webpage'] = $blocoPadrao['sellerContact']['webpage'];
+                    $dadosImoveisArray[$i]['listingType'] = 'silver';
+            }
+        }
+
+        return $dadosImoveisArray;
+    }
+
+    public static function mergeLocalização($dadosImoveisArray, $blocoPadrao){
+
+        for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
+            for ($j=0; $j < sizeof($blocoPadrao['location']); $j++) { 
+
+                if($dadosImoveisArray[$i]['imovelId'] == $blocoPadrao['location'][$j]['imovelId']){
+                    
+                    $dadosImoveisArray[$i]['location'][$j]['addressLine'] = $blocoPadrao['location'][$j]['addressLine'];
+                    $dadosImoveisArray[$i]['location'][$j]['zipCode'] = $blocoPadrao['location'][$j]['zipCode'];
+                    $dadosImoveisArray[$i]['location'][$j]['neighborhood'] = $blocoPadrao['location'][$j]['neighborhood'];
+                    $dadosImoveisArray[$i]['location'][$j]['city'] = $blocoPadrao['location'][$j]['city'];
+                    $dadosImoveisArray[$i]['location'][$j]['state'] = $blocoPadrao['location'][$j]['state'];
+                    $dadosImoveisArray[$i]['location'][$j]['country'] = "Brasil";
+        
+                }
+
+            }
+        }
+
+        return $dadosImoveisArray;
+    }
+
+    public static function mergeAtributos($dadosImoveisArray, $blocoPadrao){
+
+        for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
+            for ($j=0; $j < sizeof($blocoPadrao['attributes']); $j++) { 
+
+                if($dadosImoveisArray[$i]['imovelId'] == $blocoPadrao['attributes'][$i]['imovelId']){ 
+                    $dadosImoveisArray[$i]['attributes'][0]['name'] = $blocoPadrao['attributes'][$i]['attribute'][0]['name'];
+                    $dadosImoveisArray[$i]['attributes'][0]['value'] = $blocoPadrao['attributes'][$i]['attribute'][0]['value'];
+
+                    $dadosImoveisArray[$i]['attributes'][1]['name'] = $blocoPadrao['attributes'][$i]['attribute'][1]['name'];
+                    $dadosImoveisArray[$i]['attributes'][1]['value'] = $blocoPadrao['attributes'][$i]['attribute'][1]['value'];
+                    
+                    $dadosImoveisArray[$i]['attributes'][2]['name'] = $blocoPadrao['attributes'][$i]['attribute'][2]['name'];
+                    $dadosImoveisArray[$i]['attributes'][2]['value'] = $blocoPadrao['attributes'][$i]['attribute'][2]['value'];
+
+                    $dadosImoveisArray[$i]['attributes'][3]['name'] = $blocoPadrao['attributes'][$i]['attribute'][3]['name'];
+                    $dadosImoveisArray[$i]['attributes'][3]['value'] = $blocoPadrao['attributes'][$i]['attribute'][3]['value'];
+
+                    $dadosImoveisArray[$i]['attributes'][4]['name'] = $blocoPadrao['attributes'][$i]['attribute'][4]['name'];
+                    $dadosImoveisArray[$i]['attributes'][4]['value'] = $blocoPadrao['attributes'][$i]['attribute'][4]['value'];
+
+                }
+                
+            }
+        }
+
+        return $dadosImoveisArray;
+
+    }
+    
+    public static function chavearAtributosImoveis($array){
+        $arrayRetorno = [];
+        $arrayFinal = [];
+        
+        foreach ($array as $a) {
+            $arrayRetorno['imovelId']= $a['imovelId'];
+            $arrayRetorno['attribute']['area_util'] = $a['area_util'];
+            $arrayRetorno['attribute']['area_total'] = $a['area_total'];
+            $arrayRetorno['attribute']['armarios_embutidos'] = $a['armarios_embutidos'];
+            $arrayRetorno['attribute']['quartos'] = $a['quartos'];
+            $arrayRetorno['attribute']['banheiros'] = $a['banheiros'];
+            array_push($arrayFinal, $arrayRetorno);
+        }
+        
+        for ($i=0; $i <sizeof($arrayFinal) ; $i++) { 
+            $arrayCerto = [];
+            $chavesArray = array_keys($arrayFinal[$i]['attribute']);
+            
+            $areaUtil = $arrayFinal[$i]['attribute']['area_util'];
+            $arrayFinal[$i]['attribute'][0] = [];
+            $arrayFinal[$i]['attribute'][0]['name'] = 'Área Útil';
+            $arrayFinal[$i]['attribute'][0]['value'] = $areaUtil;
+            unset($arrayFinal[$i]['attribute']['area_util']);
+
+            $areaTotal = $arrayFinal[$i]['attribute']['area_total'];
+            $arrayFinal[$i]['attribute'][1] = [];
+            $arrayFinal[$i]['attribute'][1]['name'] = 'Área Total';
+            $arrayFinal[$i]['attribute'][1]['value'] = $areaTotal;
+            unset($arrayFinal[$i]['attribute']['area_total']);
+
+            $areaTotal = $arrayFinal[$i]['attribute']['armarios_embutidos'];
+            $arrayFinal[$i]['attribute'][2] = [];
+            $arrayFinal[$i]['attribute'][2]['name'] = 'Armários Embutidos';
+            $arrayFinal[$i]['attribute'][2]['value'] = $areaTotal;
+            unset($arrayFinal[$i]['attribute']['armarios_embutidos']);
+
+            $areaTotal = $arrayFinal[$i]['attribute']['quartos'];
+            $arrayFinal[$i]['attribute'][3] = [];
+            $arrayFinal[$i]['attribute'][3]['name'] = 'Quartos';
+            $arrayFinal[$i]['attribute'][3]['value'] = $areaTotal;
+            unset($arrayFinal[$i]['attribute']['quartos']);
+
+            $areaTotal = $arrayFinal[$i]['attribute']['banheiros'];
+            $arrayFinal[$i]['attribute'][4] = [];
+            $arrayFinal[$i]['attribute'][4]['name'] = 'Banheiros';
+            $arrayFinal[$i]['attribute'][4]['value'] = $areaTotal;
+            unset($arrayFinal[$i]['attribute']['banheiros']);
+
+        }
+        
+        return $arrayFinal;       
     }
 
 }
