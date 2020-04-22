@@ -29,7 +29,7 @@ class MercadoLivreController extends Controller
         $blocoPadrao['location'] = Imoveis::getLocalizacaoImoveisMercadoLivreSellf();
         $blocoPadrao['location'] = Imoveis::getLocalizacaoImoveisMercadoLivreSellf();
         $blocoPadrao['attributes'] = Imoveis::getAtributosImoveisMercadoLivreSellf();
-
+        
         $dadosImoveis = Imoveis::getImoveisMercadoLivreSellf();
         $fotosImoveis = Imoveis::getFotosImoveisMercadoLivreSellf();
         
@@ -49,23 +49,16 @@ class MercadoLivreController extends Controller
         
         $tagsImovel = Helpers::arrayToXml('imovel', $dadosImoveisArray, $tipoIntegracao);
 
-        $arquivo = fopen($nomeArquivo, 'w+');
-    
+        $arquivo = fopen($nomeArquivo, 'w+');   
          
         $conteudoArquivo = '<?xml version="1.0" encoding="UTF-8"?>';
         $conteudoArquivo .= '<ListingDataFeed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://dev-test.mercadolibre.com/apps/validator.xsd">';
         $conteudoArquivo .= '<imoveis>';
         $conteudoArquivo .= $blocoPadrao['email'];
-        
-        $tagsImovel = Helpers::arrayToXml('Imovel', $dadosImoveisArray, $tipoIntegracao);
-
         $conteudoArquivo .= $tagsImovel;
         $conteudoArquivo .= '</imoveis>';
         $conteudoArquivo .= '</ListingDataFeed>';
-        // var_dump($conteudoArquivo);
-        // exit;
-
-        return Helpers::criarArquivo($nomeArquivoExibicao, $arquivo, $conteudoArquivo);
         
+        return Helpers::criarArquivo($nomeArquivoExibicao, $arquivo, $conteudoArquivo);
     }
 }
