@@ -102,7 +102,7 @@ class Helpers {
     }
 
     /** 
-    * Função para  Converter gerar array multidimensional
+    * Função para converter Objeto StData em array multidimensional
     *
     * @name gerarArrayMulti
     * @access public 
@@ -111,8 +111,7 @@ class Helpers {
     *
     */
     public static function gerarArrayMulti($object){
-        $array = [];
-        
+        $array = [];        
         for ($i=0; $i < sizeof($object); $i++) { 
             # code...
             array_push($array, get_object_vars($object[$i]));
@@ -160,6 +159,7 @@ class Helpers {
             }
 
         }
+    
         return $dadosImoveisArray;
     }
     
@@ -264,8 +264,8 @@ class Helpers {
     }
 
     /** 
-    * Função para criar as tags auxiliares do Mercado Livre
-    *    
+    * Função para criar as tags auxiliares do Mercado Livre    
+    * 
     * @name criarTagsAuxiliaresMl
     * @access public 
     * @param Array $array
@@ -273,8 +273,6 @@ class Helpers {
     *
     */ 
     public static function criarTagsAuxiliaresMl($array){
-        
-        
         foreach ($array as $a) {
             if(array_key_exists('imageURL', $a)){
                 $parentTag = 'pictures';
@@ -370,35 +368,7 @@ class Helpers {
 
         $nameTag .= '</'.$parentTag.'>';
         return $nameTag;
-    }
-
-    // /** 
-    // * Função para criar as tags auxiliares do Mercado Livre
-    // *    
-    // * @name criarTagsAuxiliaresMl
-    // * @access public 
-    // * @param String $parentTag
-    // * @param Array $array
-    // * @return String 
-    // *
-    // */ 
-    // public static function criarTagFotoAuxiliarMl($parentTag, $array){
-    //     $nameTag = '<'.$parentTag.'>';
-        
-    //     foreach ($array as $a) {
-            
-    //         $nameTag .= "<imageURL>";
-    //         $nameTag .= $a['imageURL'];
-    //         $nameTag .= "</imageURL>";
-    //     }
-
-    //     $nameTag .= '</'.$parentTag.'>';
-    //     return $nameTag;
-    // }
-
-    
-
-    
+    }    
 
     /** 
     * Função para criar o arquivo. Retorna a mensagem de erro ou sucesso
@@ -424,6 +394,17 @@ class Helpers {
         return json_encode($retorno);
     }
 
+    /** 
+    * Função para relacionar os imóveis à seus anunciantes (bloco específico para o ML)
+    *
+    * @name mergeDadosVendedor
+    * @access public 
+    * @param Array $dadosImoveisArray
+    * @param Array $blocoPadrao
+    * @return Array 
+    *
+    */ 
+
     public static function mergeDadosVendedor($dadosImoveisArray, $blocoPadrao){
         
         for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
@@ -441,6 +422,16 @@ class Helpers {
         return $dadosImoveisArray;
     }
 
+    /** 
+    * Função para relacionar os imóveis à sua localização (bloco específico para o ML)
+    *
+    * @name mergeLocalização
+    * @access public 
+    * @param Array $dadosImoveisArray
+    * @param Array $blocoPadrao
+    * @return Array 
+    *
+    */ 
     public static function mergeLocalização($dadosImoveisArray, $blocoPadrao){
 
         for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
@@ -463,6 +454,16 @@ class Helpers {
         return $dadosImoveisArray;
     }
 
+    /** 
+    * Função para relacionar os imóveis à seus atributos (bloco específico para o ML)
+    *
+    * @name mergeAtributos
+    * @access public 
+    * @param Array $dadosImoveisArray
+    * @param Array $blocoPadrao
+    * @return Array 
+    *
+    */ 
     public static function mergeAtributos($dadosImoveisArray, $blocoPadrao){
 
         for ($i=0; $i < sizeof($dadosImoveisArray); $i++) {
@@ -492,6 +493,19 @@ class Helpers {
         return $dadosImoveisArray;
 
     }
+
+     /** 
+    * Função para chavear os atributos do imóvel de acordo transformado todos em
+    * name = ""
+    * value = ""
+    *(bloco específico para o ML)
+    *
+    * @name chavearAtributosImoveis
+    * @access public 
+    * @param Array $array
+    * @return Array 
+    *
+    */
     
     public static function chavearAtributosImoveis($array){
         $arrayRetorno = [];
